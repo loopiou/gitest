@@ -17,6 +17,7 @@ git rm <file>  # 删除文件（误删后，可以使用 git checkout -- <file> 
 
 
 git remote add origin git@server-name:path/repo-name.git  # 关联一个远程库
+git remote rm origin  # 删除远程库 origin
 
 # 由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，
 # 还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
