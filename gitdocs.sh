@@ -287,6 +287,9 @@ cat .gitconfig
     ci = commit
     br = branch
     st = status
+    last = log -1
+    unstage = reset HEAD
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 [user]
     name = Your Name
     email = your@email.com
