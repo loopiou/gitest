@@ -131,27 +131,23 @@ git tag -a v0.1 -m "version 0.1 released" 1094adb
 # 命令git tag -a <tagname> -m "blablabla..."可以指定标签信息；
 # 命令git tag可以查看所有标签。
 
+git tag -d v0.1  # 如果标签打错了，也可以删除
+# 因为创建的标签都只存储在本地，不会自动推送到远程。所以，打错的标签可以在本地安全删除。
+# 如果要推送某个标签到远程，使用命令git push origin <tagname>：
+git push origin v1.0
+# 或者，一次性推送全部尚未推送到远程的本地标签
+git push origin --tags
 
+# 如果标签已经推送到远程，要删除远程标签就麻烦一点，先从本地删除：
+git tag -d v0.9
+# 然后，从远程删除。删除命令也是push，但是格式如下：
+git push origin :refs/tags/v0.9
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# 小结
+# 命令git push origin <tagname>可以推送一个本地标签；
+# 命令git push origin --tags可以推送全部未推送过的本地标签；
+# 命令git tag -d <tagname>可以删除一个本地标签；
+# 命令git push origin :refs/tags/<tagname>可以删除一个远程标签。
 
 
 
@@ -244,7 +240,12 @@ git log --graph --pretty=oneline --abbrev-commit
 # 小结
 # rebase操作可以把本地未push的分叉提交历史整理成直线；
 # rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。
-
+# 遇到的问题总结：
+# 一开始按照教程演示去操作，因为两个目录修改的不是同一文件，git pull 后直接合并了没有冲突，所以git rebase有效果。
+# 如果git pull后提示有冲突后，先不管冲突的代码，因为修改后执行rebase还是变回有冲突的代码。先执行git add . 和 git commit -m 'xxx'。
+# 在执行git rebase 终端提示：Resolve all conflicts manually, mark them as resolved with "git add/rm <conflicted_files>",
+# then run "git rebase --continue”。这时再手动修改代码解决冲突，执行git add . 再执行 git rebase --continue 就有效果了。
+# 这时直接git push 到远程仓库即可
 
 # ----------------------------自定义 git -------------------------------
 git add -f App.class  # 强制添加文件到暂存区，即便文件在 .gitignore 中指定
